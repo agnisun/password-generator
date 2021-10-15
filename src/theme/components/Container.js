@@ -1,5 +1,5 @@
 export default {
   baseStyle: {
-    maxWidth: "1230px"
-  }
-}
+    maxWidth: "1230px",
+  },
+};

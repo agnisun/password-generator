@@ -5,6 +5,6 @@ export default {
       fontSize: "18px",
       color: "#333",
       lineHeight: "1.5",
-    }
-  }
-}
+    },
+  },
+};
