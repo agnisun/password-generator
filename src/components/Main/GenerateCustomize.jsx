@@ -1,51 +1,41 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Checkbox,
   CheckboxGroup,
   Flex,
   Heading,
-  HStack,
   Input,
-  Radio,
-  RadioGroup,
   Slider,
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
   Stack,
-  VStack,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setCheckboxArr,
+  setStrategies,
   setPasswordLength,
-  setRadio,
 } from "../../features/generateSlice";
 
-export const GenerateCustomize = () => {
-  const [valueRadio, setValueRadio] = useState("1");
-  const passwordLength = useSelector((state) => state.generate.passwordLength);
-  const checkboxArr = useSelector((state) => state.generate.checkbox);
+export const GenerateCustomize = ({ bg, boxShadow }) => {
+  const passwordLength = useSelector((state) => state.generate.length);
+  const strategies = useSelector((state) => state.generate.strategies);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setRadio(valueRadio));
-  }, [valueRadio, dispatch]);
 
   return (
     <Box
+      bg={bg}
       mb={"30px"}
       alignSelf={"center"}
       position={"relative"}
-      boxShadow={"0px 6px 37px 9px rgba(34, 60, 80, 0.1)"}
+      boxShadow={boxShadow}
       p={"25px"}
       w={"100%"}
       border={"1px solid rgba(55, 55, 55, 0.1)"}
     >
       <Heading
         ass={"h3"}
-        fontSize={"24px"}
+        fontSize={{ base: "18px", sm: "24px" }}
         fontWeight={"700"}
         lineHeight={"45px"}
         mb={"25px"}
@@ -53,8 +43,12 @@ export const GenerateCustomize = () => {
       >
         Customize your password
       </Heading>
-      <Flex w={"100%"}>
-        <Box w={"100%"} flexBasis={"50%"} pr={"30px"}>
+      <Flex
+        w={"100%"}
+        justifyContent={"space-between"}
+        flexDirection={{ base: "column", lg: "row" }}
+      >
+        <Box w={"100%"} pr={"30px"} flexBasis={"75%"}>
           <Box mb={"15px"}>Password Length</Box>
           <Flex>
             <Input
@@ -77,35 +71,24 @@ export const GenerateCustomize = () => {
               <SliderTrack>
                 <SliderFilledTrack />
               </SliderTrack>
-              <SliderThumb />
+              <SliderThumb boxSize={"20px"}>
+                <Box
+                  w={"20px"}
+                  h={"100%"}
+                  borderRadius={"50%"}
+                  bgColor="#3182ce"
+                />
+              </SliderThumb>
             </Slider>
           </Flex>
         </Box>
 
-        <Flex w={"100%"} flexBasis={"50%"}>
-          <RadioGroup
-            onChange={setValueRadio}
-            value={valueRadio}
-            flexBasis={"50%"}
-          >
-            <Stack direction="column">
-              <Radio size={"lg"} value="1">
-                Easy to say
-              </Radio>
-              <Radio size={"lg"} value="2">
-                Easy to read
-              </Radio>
-              <Radio size={"lg"} value="3">
-                All characters
-              </Radio>
-            </Stack>
-          </RadioGroup>
-
+        <Flex justifyContent={"flex-end"}>
           <CheckboxGroup
             colorScheme="blue"
-            defaultValue={checkboxArr}
+            defaultValue={strategies}
             flexBasis={"50%"}
-            onChange={(e) => dispatch(setCheckboxArr(e))}
+            onChange={(e) => dispatch(setStrategies(e))}
           >
             <Stack direction={"column"}>
               <Checkbox size={"lg"} value="lowercase">
